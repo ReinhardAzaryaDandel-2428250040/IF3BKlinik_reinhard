@@ -18,11 +18,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
-    {
-        // Daftarkan route API manual
-        Route::middleware('api')
-             ->prefix('api')
-             ->group(base_path('routes/api.php'));
+public function boot(): void
+{
+    if ($this->app->environment('production')) {
+        \URL::forceScheme('https');
     }
+}
+
+
 }
