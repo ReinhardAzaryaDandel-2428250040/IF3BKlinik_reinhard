@@ -5,16 +5,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use Illuminate\Http\Request;
+use App\Http\Middleware\CorsMiddleware;
 
-
-// Middleware CORS untuk semua route API
-Route::middleware(function ($request, $next) {
-    $response = $next($request);
-    $response->header('Access-Control-Allow-Origin', '*')
-             ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
-             ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return $response;
-})->group(function () {
+// Middleware CORS khusus untuk semua route API
+Route::middleware([CorsMiddleware::class])->group(function () {
 
     // Auth API
     Route::post('/register', [AuthController::class, 'register']);
@@ -56,6 +50,7 @@ Route::options('{any}', function() {
         ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 })->where('any', '.*');
 
+// Route user hanya untuk auth:sanctum
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function(Request $request) {
         return $request->user();
