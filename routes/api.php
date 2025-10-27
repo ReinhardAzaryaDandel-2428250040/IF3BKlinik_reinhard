@@ -50,9 +50,3 @@ Route::options('{any}', function() {
         ->header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 })->where('any', '.*');
 
-// Route user hanya untuk auth:sanctum
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function(Request $request) {
-        return $request->user();
-    });
-});
