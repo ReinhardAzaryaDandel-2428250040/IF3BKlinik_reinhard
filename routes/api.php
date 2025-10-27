@@ -6,6 +6,7 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use Illuminate\Http\Request;
 
+
 // Middleware CORS untuk semua route API
 Route::middleware(function ($request, $next) {
     $response = $next($request);
